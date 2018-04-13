@@ -29,14 +29,27 @@ def exact_solution(X, Y):
 		# is your chance to learn some of the basics
 		
 
-	pass #remove this line, return w upon implementation
-	# return w
+	w = np.dot(np.dot(np.linalg.inv(np.add(np.eye(np.shape(X)[0]), np.dot(X, X.T))), X), Y)
+	return w
 
 '''TODO'''
 # Starts with an initial guess for w
 # and performs gradient descent until it converges
+
+# Function to calculate the gradience of the loss function 
+def calcGrad(X, Y, w):
+	return np.substract(w, np.dot(X, np.subtract(Y, np.dot(X.T, w))))
+
+# apply gradient descent
 def gradient_descent(X, Y, eta=0.00001):
 	w = np.zeros(X.shape[0])
+	grad = calcGrad(X, Y, w)
+
+	while(grad >= 0.001):
+		w = np.subtract(w, eta*grad)
+		grad = calculate(X, Y, w)
+
+	return w
 	# Implement gradient descent here
 
 
